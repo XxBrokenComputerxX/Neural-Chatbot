@@ -4,9 +4,10 @@ import pickle
 import numpy as np
 import nltk
 from nltk.stem import WordNetLemmatizer
-from tensorflow import keras
-from keras.layers import Dense
-from keras.models import Sequential, load_model
+#from tensorflow import keras
+#from keras.layers import Dense
+#from keras.models import Sequential, load_model
+from tensorflow.keras.models import load_model
 
 lemmatizer = WordNetLemmatizer()
 intents = json.loads(open('intents.json').read())
@@ -31,7 +32,7 @@ def bag_of_words(sentence):
 
 def predict_class(sentence):
         p = bag_of_words(sentence)
-        res = model.predict(np.array([p]))[0]
+        res = model.predict(np.array([p]), verbose=0)[0] #Verbose 0 to hide stats
         ERROR_THRESHOLD = 0.1
         results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
 
